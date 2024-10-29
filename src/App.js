@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+import React from 'react';
+import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
+import Posts from './components/Posts';
+import CreatePost from './components/CreatePost';
 import './App.css';
 
-function App() {
+
+const client = new ApolloClient({
+  uri: 'https://graphqlzero.almansi.me/api',
+  cache: new InMemoryCache(),
+});
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <div className="app">
+        <CreatePost />
+        <Posts />
+      </div>
+    </ApolloProvider>
   );
-}
+};
 
 export default App;
